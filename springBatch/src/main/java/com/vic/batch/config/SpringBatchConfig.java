@@ -19,6 +19,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 
+import com.vic.batch.repository.EmployeeRepository;
 import com.vic.batch.vo.Employee;
 
 @Configuration
@@ -29,6 +30,9 @@ public class SpringBatchConfig {
 
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
+    
+    @Autowired
+    private EmployeeRepository repo;
 
     @Bean
     public Step step1() {
@@ -90,6 +94,7 @@ public class SpringBatchConfig {
                             + employee.getLastName() + "; "
                             + "Age: " + employee.getAge() + "; "
                             + "Salary: " + employee.getSalary());
+                    repo.save(employee);
                 }
             }
         };
